@@ -37,8 +37,6 @@ WebHost.CreateDefaultBuilder(args)
         app.UseRouting();
         app.UseEndpoints(endpoints =>
         {
-
-
             endpoints.MapPost("/api/books", async context =>
             {
                 (var scope, var booksContext) = GetBooksContext();
