@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,26 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.ComponentModel.DataAnnotations;
 
-Host.CreateDefaultBuilder(args)
-    .ConfigureWebHostDefaults(builder =>
+WebHost.CreateDefaultBuilder(args)
+    .ConfigureServices((context, services) =>
     {
-        builder.UseStartup<Startup>();
-    }).Build().Run();
-
-class Startup
-{
-    public Startup(IConfiguration configuration) => Configuration = configuration;
-
-    public IConfiguration Configuration { get; }
-    public void ConfigureServices(IServiceCollection services)
-    {
+        var settings = context.Configuration;
         services.AddDbContext<BooksContext>(options =>
         {
-            options.UseSqlServer(Configuration.GetConnectionString("BooksConnection"));
+            options.UseSqlServer(settings.GetConnectionString("BooksConnection"));
         });
-    }
-
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    })
+    .Configure((context, app) =>
     {
         (IServiceScope, BooksContext) GetBooksContext()
         {
@@ -35,21 +26,19 @@ class Startup
             return (scope, context);
         }
 
-        if (env.IsDevelopment())
+        if (context.HostingEnvironment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
             (var scope, var booksContext) = GetBooksContext();
-            using (scope)
-            {
-
-                booksContext.Database.EnsureCreated();
-            }
+            using var _ = scope;
+            booksContext.Database.EnsureCreated();
         }
 
         app.UseRouting();
-
         app.UseEndpoints(endpoints =>
         {
+
+
             endpoints.MapPost("/api/books", async context =>
             {
                 (var scope, var booksContext) = GetBooksContext();
@@ -76,9 +65,10 @@ class Startup
                 var books = await booksContext.Books.ToListAsync();
                 await context.Response.WriteAsJsonAsync(books);
             });
+
         });
-    }
-}
+    })
+    .Build().Run();
 
 public class BooksContext : DbContext
 {
