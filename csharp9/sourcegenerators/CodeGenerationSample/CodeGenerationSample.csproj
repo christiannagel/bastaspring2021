@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>2.0</Version>
+    <LangVersion>9.0</LangVersion>
+    <Version>2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
