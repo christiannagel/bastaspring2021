@@ -80,6 +80,6 @@ public class BooksContext : DbContext
 }
 
 public record Book(
-    [StringLength(50)] string Title,
-    [StringLength(20)] string? Publisher,
+    [property: StringLength(50)] string Title,
+    [property: StringLength(20)] string? Publisher,
     int Id = 0);
