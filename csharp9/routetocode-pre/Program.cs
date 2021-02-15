@@ -18,11 +18,6 @@ WebHost.CreateDefaultBuilder(args)
         app.UseRouting();
         app.UseEndpoints(endpoints =>
         {
-            endpoints.Map("/", async context =>
-            {
-                await context.Response.WriteAsync("<h1>hello</h1>");
-
-            });
         });
     })
     .Build().Run();
