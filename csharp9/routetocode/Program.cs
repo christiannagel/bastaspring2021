@@ -63,6 +63,10 @@ WebHost.CreateDefaultBuilder(args)
                 var books = await booksContext.Books.ToListAsync();
                 await context.Response.WriteAsJsonAsync(books);
             });
+            endpoints.Map("/", async context =>
+            {
+                await context.Response.WriteAsync("<h2>Hello</h2>");
+            });
 
         });
     })
