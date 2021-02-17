@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>558f951f-8772-4534-9df5-b90a5e848a8f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.4.0-beta.3" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.26.0" />
+  </ItemGroup>
+
+</Project>

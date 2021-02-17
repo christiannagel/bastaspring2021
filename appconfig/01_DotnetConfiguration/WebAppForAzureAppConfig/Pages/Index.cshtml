@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style>
+    body {
+        background-color: @Model.Settings?.BackgroundColor
+    }
+
+    h2 {
+        color: @Model.Settings?.ForegroundColor
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <h2>Setting 1: @Model.Settings?.Setting1</h2>
+</div>
