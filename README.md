@@ -3,3 +3,4 @@
 Source code samples for
 
 * C# 9 - what's the cool stuff?
+* Azure App Configuration with .NET Applications
