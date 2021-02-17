@@ -28,18 +28,11 @@ namespace WebAppForAzureAppConfig
                         config.AddAzureAppConfiguration(azureAppConfig =>
                         {
                             azureAppConfig.Connect(new Uri(azureAppConfigurationEndpoint), credential)
-                            .ConfigureClientOptions(o =>
-                            {
-                                o.Diagnostics.IsLoggingEnabled = true;
-                                o.Diagnostics.IsLoggingContentEnabled = true;
-                                o.Diagnostics.IsDistributedTracingEnabled = true;
-                                
-                            })
                             .ConfigureRefresh(refresh =>
                             {
                                 refresh.Register("AppConfigurationSolutionSample.MySettingsCategory.Sentinel",
                                     refreshAll: true)
-                                .SetCacheExpiration(TimeSpan.FromSeconds(30));
+                                .SetCacheExpiration(TimeSpan.FromMinutes(5));
 
                             })
                             .Select(KeyFilter.Any, LabelFilter.Null)
