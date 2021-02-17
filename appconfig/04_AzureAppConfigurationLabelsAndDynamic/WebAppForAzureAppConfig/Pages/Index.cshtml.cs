@@ -4,22 +4,25 @@ using Microsoft.Extensions.Options;
 
 namespace WebAppForAzureAppConfig.Pages
 {
-    public record IndexAppSettings
+    public class IndexAppSettings
     {
-        public string? Setting1 { get; init; }
+        public string? Setting1 { get; set; }
+        public string? BackgroundColor { get; set; }
+        public string? ForegroundColor { get; set; }
     }
 
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly IndexAppSettings? _settings;
 
         public IndexModel(IOptionsSnapshot<IndexAppSettings> options, ILogger<IndexModel> logger)
         {
             _logger = logger;
-            Setting1 = options.Value.Setting1 ?? "no value";
+            Settings = options.Value;
         }
 
-        public string Setting1 { get; }
+        public IndexAppSettings? Settings { get; }
 
         public void OnGet()
         {

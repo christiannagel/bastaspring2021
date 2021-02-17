@@ -28,14 +28,24 @@ namespace WebAppForAzureAppConfig
                         config.AddAzureAppConfiguration(azureAppConfig =>
                         {
                             azureAppConfig.Connect(new Uri(azureAppConfigurationEndpoint), credential)
-                            .Select(KeyFilter.Any, LabelFilter.Null)
-                            .Select(KeyFilter.Any, context.HostingEnvironment.EnvironmentName)
+                            .ConfigureClientOptions(o =>
+                            {
+                                o.Diagnostics.IsLoggingEnabled = true;
+                                o.Diagnostics.IsLoggingContentEnabled = true;
+                                o.Diagnostics.IsDistributedTracingEnabled = true;
+                                
+                            })
                             .ConfigureRefresh(refresh =>
                             {
-                                refresh.Register("AppConfigurationSolutionSample.Sentinel",
+                                refresh.Register("AppConfigurationSolutionSample.MySettingsCategory.Sentinel",
                                     refreshAll: true)
-                                .SetCacheExpiration(TimeSpan.FromMinutes(5));
-                            });
+                                .SetCacheExpiration(TimeSpan.FromSeconds(30));
+
+                            })
+                            .Select(KeyFilter.Any, LabelFilter.Null)
+                            .Select(KeyFilter.Any, context.HostingEnvironment.EnvironmentName);
+                            
+
                         });
                     });
                     webBuilder.UseStartup<Startup>();

@@ -19,9 +19,8 @@ namespace WebAppForAzureAppConfig
                 {
                     webBuilder.ConfigureAppConfiguration(config =>
                     {
-                        DefaultAzureCredential credential = new(includeInteractiveCredentials: true);
+                        DefaultAzureCredential credential = new();
                         var settings = config.Build();
-                        // read from user secrets
                         string azureAppConfigurationEndpoint = settings["AzureAppConfigurationEndpoint"];
 
                         config.AddAzureAppConfiguration(azureAppConfig =>
