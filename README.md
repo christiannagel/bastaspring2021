@@ -2,8 +2,9 @@
 
 Source code samples for
 
-* C# 9 - what's the cool stuff?
-* Azure App Configuration with .NET Applications
+[C# 9 - what's the cool stuff?](https://www.slideshare.net/christiannagel/c-9-whats-the-cool-stuff-basta-spring-2021)
+
+[Azure App Configuration with .NET Applications](https://www.slideshare.net/christiannagel/azure-app-configuration-with-net-applications)
 
 
 ## C# 9 - What's the cool stuff?
